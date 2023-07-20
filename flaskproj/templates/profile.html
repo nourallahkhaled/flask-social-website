@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<img src="https://images.pexels.com/photos/3357267/pexels-photo-3357267.jpeg?auto=compress&cs=tinysrgb&w=1600" height="300px" width="100%" alt="">
+<div class="container">
+    <div style="border: 1px solid #D8C4B6; border-radius: 50%; display: inline-block;">
+        <img src="{{ url_for('uploaded_file', filename=user.profile_picture) }}" style="height: 100px; width: 140px; border-radius: 50%;" alt="Profile picture">
+    </div>
+    <h2 style="display: inline; margin-left: 5px; color: #213555;">{{user.username}}</h2>
+    <a href="" id="edit-name"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+    </svg></a>
+    <form id="name-form" class="d-none" action="{{ url_for('profile', user_id=user.id) }}" method="POST">
+        {{ profile_form.hidden_tag() }}
+        <div class="form-group">
+            {{ profile_form.username.label }} {{ profile_form.username(class_="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ profile_form.submit(class_="btn btn-primary") }}
+        </div>
+    </form>
+    <form method="post" style="margin-top: 5px;" enctype="multipart/form-data" action="{{ url_for('upload_picture') }}">
+        <input type="file" name="file">
+        <input type="submit" class="btn" value="Upload">
+    </form>
+    <h3 style="color: #213555; margin-top: 25px;">About info:</h3>
+    <ul style="list-style: none; color: #213555;">
+        <li>Gender: {{user.gender}}</li>
+        <li>Email: {{user.email}}</li>
+    </ul>
+    <hr>
+    <h2>Create Post</h2>
+    <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.content.label }}
+        {{ form.content(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.privacy.label }}
+        {{ form.privacy(class="form-control") }}
+    </div>
+    <input type="submit" value="Create Post" class="btn btn-primary">
+    </form>
+    <hr>
+    <h3 style="color: #213555;">Recent posts:</h3>
+    {% for post in posts %}
+        <div class="post">
+            <div class="post">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+            </div>
+            <button class="btn edit-post-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg></button>
+            <form method="post" class="edit-post-form" style="display: none;">
+                <input type="hidden" name="post_id" value="{{ post.id }}">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" value="{{ post.title }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea name="content" id="content" class="form-control">{{ post.content }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="privacy">Privacy</label>
+                    <select name="privacy" id="privacy" class="form-control">
+                        <option value="public" {% if post.privacy == 'public' %}selected{% endif %}>Public</option>
+                        <option value="private" {% if post.privacy == 'private' %}selected{% endif %}>Private</option>
+                    </select>
+                </div>
+                <input type="submit" value="Update" class="btn btn-primary">
+                <a href="{{ url_for('delete_post', post_id=post.id) }}" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></a>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+<script>
+    const editPostButtons = document.querySelectorAll('.edit-post-btn');
+    editPostButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const form = button.nextElementSibling;
+            form.style.display = 'block';
+    });
+    });
+    const editNameLink = document.getElementById("edit-name");
+    const nameForm = document.getElementById("name-form");
+
+    editNameLink.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        nameForm.classList.toggle("d-none"); // Toggle the "d-none" class to show or hide the form
+    });
+</script>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}

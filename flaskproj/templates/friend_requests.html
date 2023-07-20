@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2 style="color:#213555;" class="m-3">Pending Friend Requests:</h2>
+    {% if friend_requests %}
+        <ul>
+            {% for request in friend_requests %}
+                <li style="color: #213555; font-size: 19px;"  class="mb-1">{{ request.sender.username }} wants to be friends.</li>
+                <form method="post" style="display: inline;" action="{{ url_for('accept_friend_request', request_id=request.id) }}">
+                    <button type="submit" style="background-color: #213555; color: antiquewhite; "  class="btn">Accept</button>
+                </form>
+                <form method="post" style="display: inline;" action="{{ url_for('decline_friend_request', request_id=request.id) }}">
+                    <button type="submit" style="background-color: antiquewhite; color: #213555; border: 2px solid #213555; " class="btn">Decline</button>
+                </form>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending friend requests.</p>
+    {% endif %}
+{% endblock %}

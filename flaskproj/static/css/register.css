@@ -1,0 +1,50 @@
+:root {
+    --first-color: #213555;
+    --second-color: #4F709C;
+    --third-color: #D8C4B6;
+    --fourth-color: #F5EFE7;
+}
+.img-reg{
+    display: inline-block;
+    margin-left: auto;
+}
+.main_form{
+    width: 400px;
+    height: 580px;
+    margin-top: 60px;
+    margin-left: 140px;
+    background-color: var(--first-color);
+    color: var(--fourth-color);
+    border: 1px solid var(--first-color);
+}
+.form-group{
+    margin-bottom: 30px;
+    margin: 30px 30px;
+}
+.header{
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top:20px ;
+}
+.btn1{
+    margin: auto;
+    width: 300px;
+}
+.btn{
+margin-top: -30px;
+width: 150px;
+margin-left: 25%;
+background-color: var(--fourth-color);
+color: var(--first-color);
+}
+.btn:hover{
+    background-color:#CD1818;
+}
+.line{
+    text-align: center;
+    border-top: 1px solid rgb(236, 233, 233);
+    width: 400px;
+    margin: auto;
+    margin-top: 25px;
+    color: var(--fourth-color) !important;
+}

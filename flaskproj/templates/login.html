@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+    <img style="margin-top: -275px;transform: scaleX(-1); margin-left: 80px;" src="../static/images/bg-login.jpeg">
+    <form method="POST" class="main_form" style="display: inline-block;height: 450px;">
+        {{ data.form.hidden_tag() }}
+        <fieldset class="form-group">
+            <h3 class="header">Login</h3>
+            <div class="form-group">
+                {% if data.form.email.errors %}
+                    {{ data.form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {% if data.form.password.errors %}
+                    {{ data.form.password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.password(class="form-control") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group btn1">
+            {{ data.form.submit(class="btn") }}
+        </div>
+        <!-- Want to Register ? -->
+        <div class="line" style="margin-top: 45px;">
+            <small>
+                Need an Account ? <a class="ml-2 text-danger" href="{{ url_for('register') }}">Register</a>
+            </small>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}

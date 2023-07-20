@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+    <img style="margin-top: -438px; padding: auto; width:45% ; height: 92vh;" src="../static/images/social.jpeg" alt="">
+    <form action="" style="display: inline-block;" method="POST" class="main_form">
+        {{ data.form.hidden_tag() }}
+        <fieldset class="form-group">
+            <h5 class="header">Sign up into social</h5>
+            <div class="form-group">
+                {% if data.form.username.errors %}
+                    {{ data.form.username(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.username(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {% if data.form.gender.errors %}
+                    {{ data.form.gender(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.gender.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.gender(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+
+                {% if data.form.email.errors %}
+                    {{ data.form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+
+                {% if data.form.password.errors %}
+                    {{ data.form.password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.password(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+
+                {% if data.form.confirm_password.errors %}
+                    {{ data.form.confirm_password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.confirm_password(class="form-control") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group btn1">
+            {{ data.form.submit(class="btn") }}
+        </div>
+        <div class="line">
+            <small>
+                Already Have An Account ? <a class="ml-2 text-danger" href="{{ url_for('login') }}">Login</a>
+            </small>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}

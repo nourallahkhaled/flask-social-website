@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Create Post</h1>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title() }}
+    {{ form.content.label }} {{ form.content() }}
+    {{ form.privacy.label }} {{ form.privacy() }}
+    {{ form.submit() }}
+  </form>
+{% endblock %}

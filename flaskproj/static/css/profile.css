@@ -1,0 +1,31 @@
+
+.custom-file-upload {
+display: inline-block;
+padding: 0.5rem 1rem;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #F5EFE7;
+background-color: #4F709C;
+border: 1px solid #4F709C;
+border-radius: 0.25rem;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+}
+
+.custom-file-upload:hover {
+background-color: #213555;
+border-color: #213555;
+}
+
+.btn {
+background-color: #4F709C;
+border-color: #4F709C;
+color: #F5EFE7;
+}
+
+.btn:hover {
+background-color: #213555;
+border-color: #213555;
+color: #F5EFE7;
+}
